@@ -23,3 +23,9 @@ SCENARIO("operator =") {
 	vector_t v2=v1;
 	REQUIRE(v2==v1);
 }
+
+SCENARIO("operator []")
+{
+	vector_t vector(3);
+	REQUIRE(vector[0] == vector.ptr[0]);
+}
