@@ -14,7 +14,7 @@ public:
     ~vector_t() noexcept;
     auto size() const noexcept -> unsigned int;
     auto capacity() const noexcept -> unsigned int;
-    auto ptr() const noexcept -> unsigned int
+    auto ptr() const noexcept -> unsigned int;
  	auto push_back(int value) -> void;
     auto operator[](unsigned int index) const noexcept -> int;
 };
