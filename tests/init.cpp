@@ -21,7 +21,7 @@ SCENARIO("copy constructor") {
 }
 
 SCENARIO("operator =") {
-	complex_t v1(7, 6); 
-	complex_t v2=v1;
+	vector_t v1(7, 6); 
+	vector_t v2=v1;
 	REQUIRE(v2==v1);
 }
