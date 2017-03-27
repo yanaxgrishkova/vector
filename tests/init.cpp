@@ -16,8 +16,8 @@ SCENARIO("constructor with params") {
 SCENARIO("copy constructor") {
 	vector_t vector(1, 2);
 	vector_t copy(vector);
-	REQUIRE(copy.size_() == 1);
-	REQUIRE(copy.capacity_() == 2);
+	REQUIRE(copy.size() == 1);
+	REQUIRE(copy.capacity() == 2);
 }
 
 SCENARIO("operator =") {
