@@ -11,7 +11,7 @@ SCENARIO("init with params", "[init param]") {
 	vector_t vector(1);
 	REQUIRE(vector.size() == 1);
 	REQUIRE(vector.capacity() == 1);
-	REQUIRE(vector[0] == 1);
+	REQUIRE(vector[0] == 0);
 }
 
 SCENARIO("init object", "[init object]") {
@@ -53,7 +53,7 @@ SCENARIO("push", "[push]")
 	vector.push_back(0);
 
 	REQUIRE(vector.size() == 6);
-	REQUIRE(vector.capacity() == 6);
+	REQUIRE(vector.capacity() == 12);
 
 	for (int i = 0; i < 3; i++)
 	{
