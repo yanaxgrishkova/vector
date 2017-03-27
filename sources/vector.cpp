@@ -52,24 +52,22 @@ auto vector_t::capacity() const noexcept -> unsigned int
 auto vector_t::push_back(int value) -> void
 {
 	vector_t copy;
-	if (capacity_ == size_)
+	copy.ptr_ = new int[capacity_];
+	for (int i = 0; i < capacity_; i++)
 	{
-		copy.ptr_ = new int[capacity_];
-		for (int i = 0; i < capacity_; i++)
-		{
-			copy.ptr_[i] = ptr_[i];
-		}
-		delete[] ptr_;
-		capacity_ *= 2;
-		ptr_ = new int[capacity_];
-		for (int i = 0; i < capacity_; i++)
-		{
-			ptr_[i] = copy.ptr_[i];
-		}
-		ptr_[size_] = value;
+		copy.ptr_[i] = ptr_[i];
 	}
-	else ptr_[size_] = value;
+	delete[] ptr_;
+	if (capacity_ == size_)
+		capacity_ *= 2;
+	ptr_ = new int[capacity_];
+	for (int i = 0; i < capacity_; i++)
+	{
+		ptr_[i] = copy.ptr_[i];
+	}
+	ptr_[size_] = value;
 }
+
 
 auto vector_t::operator[](unsigned int index) const noexcept -> int
 {
