@@ -1,8 +1,12 @@
 #include "vector.hpp"
 #include <iostream>
 
-vector_t::vector_t() : size_(0), capacity_(0), ptr_(nullptr)
-{}
+vector_t::vector_t() noexcept
+{
+	size_ = 0;
+	capacity_ = 0;
+	this -> ptr_ = nullptr;
+}
 
 vector_t::vector_t(unsigned int size)
 {
