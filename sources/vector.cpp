@@ -1,18 +1,13 @@
-#include "vector.hpp"
-#include <iostream>
+#include "vector.h"
 
-vector_t::vector_t() noexcept
-{
-	size_ = 0;
-	capacity_ = 0;
-	this -> ptr_ = nullptr;
-}
+vector_t::vector_t() : size_(0), capacity_(0), ptr_(nullptr)
+{}
 
 vector_t::vector_t(unsigned int size)
 {
 	size_ = size;
 	capacity_ = size;
-	ptr_ = new int[size];
+	ptr_ = new int[size]();
 }
 
 vector_t::vector_t(const vector_t& other)
@@ -20,7 +15,7 @@ vector_t::vector_t(const vector_t& other)
 	size_ = other.size_;
 	capacity_ = other.capacity_;
 	ptr_ = new int[capacity_];
-	for (int i = 0; i < capacity_; i++)
+	for (int i = 0; i < size_; i++)
 	{
 		ptr_[i] = other.ptr_[i];
 	}
@@ -28,12 +23,16 @@ vector_t::vector_t(const vector_t& other)
 
 auto vector_t::operator=(const vector_t& other)->vector_t&
 {
-	if (&other == this)
-		return *this;
-		delete[] ptr_;
-	for (int i = 0; i < capacity_; i++)
+	if (this != &other)
 	{
-		ptr_[i] = other.ptr_[i];
+		delete[] ptr_;
+		size_ = other.size_;
+		capacity_ = other.capacity_;
+		ptr_ = new int[capacity_];
+		for (int i = 0; i < capacity_; i++)
+		{
+			ptr_[i] = other.ptr_[i];
+		}
 	}
 	return *this;
 }
@@ -55,23 +54,25 @@ auto vector_t::capacity() const noexcept -> unsigned int
 
 auto vector_t::push_back(int value) -> void
 {
-	vector_t copy;
-	copy.ptr_ = new int[capacity_];
-	for (int i = 0; i < capacity_; i++)
+	if (capacity_ == 0)
 	{
-		copy.ptr_[i] = ptr_[i];
+		capacity_ = 1;
+		ptr_ = new int[capacity_];
 	}
-	delete[] ptr_;
-	if (capacity_ == size_)
+	else if (size_ + 1 >= capacity_)
+	{
 		capacity_ *= 2;
-	ptr_ = new int[capacity_];
-	for (int i = 0; i < capacity_; i++)
-	{
-		ptr_[i] = copy.ptr_[i];
-	}
-	ptr_[size_] = value;
-}
 
+		int* tmp = new int[capacity_];
+		for (int i = 0; i < size_; i++)
+			tmp[i] = ptr_[i];
+
+		delete[] ptr_;
+
+		ptr_ = tmp;
+	}
+	ptr_[size_++] = value;
+}
 
 auto vector_t::operator[](unsigned int index) const noexcept -> int
 {
